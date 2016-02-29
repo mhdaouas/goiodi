@@ -1,0 +1,17 @@
+app_locale_str['en-us'] = {
+    Add : 'Add',
+    AddWord : 'Add a word',
+    AddYourNewWord : 'Add your new word',
+    Application : 'Application',
+    CreatedAt : 'Created at',
+    Definition : 'Definition',
+    DefinitionOfYourNewWord : 'Definition of your new word',
+    Dictionary : 'Dictionary',
+    Language : 'Language',
+    Languages : 'Languages',
+    Settings : 'Settings',
+    TypeWord : 'Type a word',
+    Word : 'Word',
+    WordList : 'Word list',
+    YourNewWord : 'Your new word',
+};

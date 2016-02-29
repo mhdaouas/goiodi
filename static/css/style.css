@@ -1,0 +1,14 @@
+.searchedText {
+   font-weight: bold;
+    color: red;
+}
+
+.has-errors {
+    border-left: 3px solid #cc2511;
+    border-right: 3px solid #cc2511;
+}
+
+.no-errors {
+    border-left: 3px solid #3d8b3d;
+    border-right: 3px solid #3d8b3d;
+}

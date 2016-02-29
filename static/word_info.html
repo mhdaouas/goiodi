@@ -1,0 +1,43 @@
+<ion-view>
+
+    <ion-nav-title>{{ searchedWord.word }}</ion-nav-title>
+
+    <ion-content class="padding" class="has-header has-footer">
+
+        <!-- Button for word search based on speech -->
+        <ion-nav-buttons side="right">
+            <button class="button icon ion-ios-volume-high" ng-click="spellWord()">
+            </button>
+        </ion-nav-buttons>
+
+        <div class="list">
+            <!-- Display word creator and creation date -->
+            <h2>{{searchedWord.word}}</h2>
+            <p>{{ 'CreatedAt' | translate }} {{ searchedWord.creation_time }}</p>
+
+            <!-- Display word definition -->
+            <label class="item item-divider">
+                {{ 'Definition' | translate }}
+            </label>
+            <ion-item class="item-text-wrap">
+                {{ searchedWord.definition }}
+            </ion-item>
+        </div>
+
+        <!-- Display comments added by users to the word -->
+        <ion-list show-reorder="data.showReorder">
+            <ion-item ng-repeat="comment in comments" item="comment">
+
+                <label class="item item-divider">
+                    <p>{{ comment.creator }} {{ comment.creation_time }}</p>
+                </label>
+                <ion-item class="item-text-wrap">
+                    {{ comment.content }}
+                </ion-item>
+
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,17 @@
+app_locale_str['fr'] = {
+    Add : 'Ajouter',
+    AddWord : 'Ajouter un mot',
+    AddYourNewWord : 'Ajoutez votre nouveau mot',
+    Application : 'Application',
+    CreatedAt : 'Crée le',
+    Definition : 'Définition',
+    DefinitionOfYourNewWord : 'Définition de votre nouveau mot',
+    Dictionary : 'Dictionnaire',
+    Language : 'Langue',
+    Languages : 'Langues',
+    Settings : 'Paramètres',
+    TypeWord : 'Entrez un mot',
+    Word : 'Mot',
+    WordList : 'Liste des mots',
+    YourNewWord : 'Votre nouveau mot',
+};

@@ -1,0 +1,33 @@
+<ion-view>
+    <ion-nav-title>{{ 'WordList' | translate }}</ion-nav-title>
+
+    <body class="pane" ng-controller="WordListCtrl">
+
+        <!-- Button for word search based on speech -->
+        <ion-nav-buttons side="right">
+            <button class="button icon ion-android-microphone" ng-click="spellWord()">
+            </button>
+        </ion-nav-buttons>
+
+        <!-- Word search filter bar -->
+        <div class="bar bar-subheader bar-assertive item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios7-search placeholder-icon"></i>
+                <input type="search" placeholder="{{ 'TypeWord' | translate }}" ng-model="searchFilter" ng-change="filterWords()">
+            </label>
+        </div>
+
+        <!-- Word list -->
+        <ion-content class="has-subheader">
+            <ion-list show-reorder="data.showReorder">
+                <ion-item ng-repeat="word in words" 
+                item="word"
+                href="#/menu/word/{{ word.word }}">
+                    {{ word.word }}
+                </ion-item>
+            </ion-list>
+        </ion-content>
+
+    </body>
+
+</ion-view>

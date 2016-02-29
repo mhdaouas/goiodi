@@ -1,0 +1,35 @@
+<ion-view>
+
+    <ion-nav-title>{{ 'Settings' | translate }}</ion-nav-title>
+
+    <ion-content class="padding">
+
+        <label class="item item-divider">
+            {{ 'Languages' | translate }}
+        </label>
+
+        <!-- Option to select the application language -->
+        <div class="item item-input item-select">
+            <div class="input-label">
+                {{ 'Application' | translate }}
+            </div>
+            <select ng-model="appLocale" ng-change="changeAppLocale(appLocale)">
+                <option value="en-us" selected>English</option>
+                <option value="fr">Français</option>
+            </select>
+        </div>
+
+        <!-- Option to select the dictionary language -->
+        <div class="item item-input item-select">
+            <div class="input-label">
+                {{ 'Dictionary' | translate }}
+            </div>
+            <select ng-model="dictLocale" ng-change="changeDictLocale(dictLocale)">
+                <option value="en-us" selected>English</option>
+                <option value="fr">Français</option>
+            </select>
+        </div>
+
+    </ion-content>
+
+</ion-view>
