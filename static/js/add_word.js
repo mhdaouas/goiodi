@@ -1,18 +1,18 @@
 'use strict';
 
-app.controller('AddWordPageCtrl', ['$scope', 'API', function ($scope, API) {
-    // var newWord;
+app.controller('AddWordPageCtrl', function (API, $scope, $window) {
+
     $scope.newWord = {
         word : undefined,
         definition : undefined,
     };
 
     $scope.addWord = function() {
-        // if (newWordForm.$valid) {
-            var newWordJSON = JSON.stringify($scope.newWord);
-            API.addWord(newWordJSON).success(function(data){
-            });
-        // }
+        $scope.newWord.word = $scope.newWord.word.toString().toLowerCase();
+        var newWordJSON = JSON.stringify($scope.newWord);
+        API.addWord(newWordJSON).success(function(data){
+            $window.location.href = '/#/menu/word_list';
+        });
     };
 
-}]);
+});
