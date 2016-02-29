@@ -59,7 +59,7 @@ If you want to run the server in non-secure mode (HTTP), issue the following:
 ```sh
 ./goiodi
 ```
-If you prefer the secure mode (HTTPS), you need to generate TLS certificates in the project repository's root directory:
+If you prefer the secure mode (HTTPS), you need to generate TLS certificates in the project repository's root directory (the certificate files must be placed under /opt):
 ```sh
 go run $GOROOT/src/crypto/tls/generate_cert.go --host="localhost"
 ```
