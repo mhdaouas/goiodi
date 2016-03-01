@@ -4,6 +4,7 @@ package main
 const (
 	// HTTP server related constants
 	HOST              = "localhost"
+	PORT              = ":8083"
 	TLS_CERT_FILEPATH = "/etc/cert.pem"
 	TLS_KEY_FILEPATH  = "/etc/key.pem"
 	CONTENT_TYPE      = "application/json; charset=utf-8"

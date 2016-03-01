@@ -1,13 +1,13 @@
 package main
 
 import (
+	"github.com/op/go-logging"
 	"net/http"
 	"os"
 	"time"
-
-	"github.com/op/go-logging"
 )
 
+// Application prefix used in syslog
 const logPrefix = "goiodi"
 
 var Log = logging.MustGetLogger(logPrefix)

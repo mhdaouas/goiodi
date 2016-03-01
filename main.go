@@ -12,7 +12,7 @@ func main() {
 	var insecure bool
 
 	// Catch user entered arguments
-	flag.StringVar(&addr, HOST, ":8083", "HTTP server address")
+	flag.StringVar(&addr, HOST, PORT, "HTTP server address")
 	flag.BoolVar(&insecure, "insecure", false, "Don't use SSL")
 	flag.Parse()
 
