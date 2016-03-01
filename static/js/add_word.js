@@ -12,6 +12,7 @@ app.controller('AddWordPageCtrl', function (API, $scope, $window) {
         var newWordJSON = JSON.stringify($scope.newWord);
         API.addWord(newWordJSON).success(function(data){
             $window.location.href = '/#/menu/word_list';
+            $window.location.reload();
         });
     };
 
