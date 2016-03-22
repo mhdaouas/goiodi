@@ -8,7 +8,7 @@ GOIODI is an open-source responsive collaborative dictionary web application mad
   - Can be translated to several languages (only French and English are supported for the moment)
 
 ### Current version
-1.0.0
+1.1
 
 ### Used technologies
 
@@ -28,38 +28,24 @@ Download latest package lists:
 ```sh
 sudo apt-get update
 ```
-Install Golang:
-```sh
-sudo apt-get install golang
-```
-Export Golang paths by opening ~/.profile and appending the following lines:
-```sh
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-```
-Clone the project repository or download the ZIP file from this page then build the Golang HTTP server:
+Install Golang 1.6 by following the instructions at l
+
+Clone the project repository or download the ZIP file from this page then build the Golang server:
 ```sh
 go build
 ```
-Install and run MongoDB (NoSQL database):
-```sh
-sudo apt-get install -y mongodb-org
-```
+Install and run MongoDB 3.2 (https://docs.mongodb.org/manual/installation/)
 ```sh
 sudo service mongod start
 ```
-If you want to populate the database with random words, use the provided "populateDB" script in the project's root directory.
+If you want to populate the database, use the provided script in the project's root directory.
 ```sh
-./populateDB
+./populateDB_TLS
 ```
 
 ### Running the HTTP server
 
-If you want to run the server in non-secure mode (HTTP), issue the following:
-```sh
-./goiodi
-```
-If you prefer the secure mode (HTTPS), you need to generate TLS certificates in the project repository's root directory (the certificate files must be placed under /opt):
+You need to generate TLS certificates in the project repository's root directory (the certificate files must be placed under /opt):
 ```sh
 go run $GOROOT/src/crypto/tls/generate_cert.go --host="localhost"
 ```
@@ -77,8 +63,7 @@ sudo ./goiodi
  - Add word highlighting when user searches a word
  - Add word vocal search
  - Add word audio reading
- - Add social side (to make it collaborative):
-    - Manage users accounts
+ - Add user related features:
     - Add word ranking (with a 5 star system for example)
     - Add word comments
     - Add word consultation statistics
@@ -87,10 +72,3 @@ sudo ./goiodi
 License
 ----
 MIT
-
-   [Ionic]: <http://ionicframework.com>
-   [AngularJS]: <http://angularjs.org>
-   [Golang]: <https://golang.org/>
-   [MongoDB]: <https://www.mongodb.org>
-   [Angular-Translate]: <https://github.com/angular-translate/angular-translate>
-
