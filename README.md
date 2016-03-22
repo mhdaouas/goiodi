@@ -28,7 +28,7 @@ Download latest package lists:
 ```sh
 sudo apt-get update
 ```
-Install Golang 1.6 by following the instructions at l
+Install Golang 1.6 (https://golang.org/doc/install?download=go1.6.linux-amd64.tar.gz)
 
 Clone the project repository or download the ZIP file from this page then build the Golang server:
 ```sh
