@@ -17,7 +17,11 @@
         <!-- Include JS scripts -->
         <script src="bower_components/ionic/js/ionic.bundle.min.js"></script>
         <script src="bower_components/angular-translate/angular-translate.min.js"></script>
+        <script src="bower_components/angular-route/angular-route.min.js"></script>
         <script src="js/app.js"></script>
+        <script src="js/login.js"></script>
+        <script src="js/loginModal.js"></script>
+        <script src="js/signup.js"></script>
         <script src="js/word_list.js"></script>
         <script src="js/word_info.js"></script>
         <script src="js/add_word.js"></script>
@@ -38,15 +42,15 @@
 
               <ion-side-menu side="left">
                 <ion-header-bar class="bar-assertive">
-                  <h1 class="title">DICTIONARY</h1>
+                  <h1 class="title">GOIODI</h1>
                 </ion-header-bar>
                 <ion-content>
                   <ul class="list">
                     <label class="item item-divider">
                         Application
                     </label>
-                    <a href="#/menu/word_list" translate="WordList" class="item ion-navicon" menu-close></a>
-                    <a href="#/menu/add_word" translate="AddWord" class="item ion-plus" menu-close></a>
+                    <a href="#/menu/words" translate="WordList" class="item ion-navicon" menu-close></a>
+                    <a href="#/menu/words/add" translate="AddWord" class="item ion-plus" menu-close></a>
                     <a href="#/menu/settings" translate="Settings" class="item ion-gear-b" menu-close></a>
                   </ul>
                 </ion-content>
@@ -54,8 +58,6 @@
 
               <ion-side-menu-content> 
                 <ion-nav-bar class="bar-assertive">
-                    <ion-nav-back-button>
-                    </ion-nav-back-button>
                     <ion-nav-buttons side="left">
                       <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
                       </button>
@@ -67,181 +69,33 @@
             </ion-side-menus>
         </script>
 
-        <script id="tabs.html" type="text/ng-template">
-            <ion-nav-bar class="bar-assertive">
-                <ion-nav-back-button class="button-icon ion-arrow-left-c">
-                </ion-nav-back-button>
+        <script id="login_modal.html" type="text/ng-template">
+            <ion-modal-view>
+                <header class="bar bar-header bar-positive">
+                  <h1 class="title" translate="Login"></h1>
+                </header>
+                <ion-content ng-controller="LoginModalCtrl" class="padding">
+                    <div class="list list-inset">
 
-                <ion-nav-buttons side="left">
-                  <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
-                </ion-nav-buttons>
-            </ion-nav-bar>
+                        <label class="item item-divider">
+                            {{ 'EnterYourPersonalInfo' | translate }}
+                        </label>
 
-            <ion-tabs class="tabs-icon-top tabs-assertive">
+                        <!-- User username field -->
+                        <label class="item item-input">
+                            <input type="text" placeholder="Username" ng-model="LoginModal.user.username">
+                        </label>
 
-              <ion-tab title="List" icon="ion-clipboard" href="#/menu/tab/word_list">
-                <ion-nav-view name="personal-fav-ann-tab"></ion-nav-view>
-              </ion-tab>
+                        <!-- User password field -->
+                        <label class="item item-input">
+                            <input type="password" placeholder="Password" ng-model="LoginModal.user.password">
+                        </label>
 
-              <ion-tab title="List" icon="ion-clipboard" href="#/menu/tab/add_word">
-                <ion-nav-view name="personal-fav-ann-tab"></ion-nav-view>
-              </ion-tab>
-
-              <ion-tab title="Settings" icon="ion-settings" href="#/menu/tab/settings">
-                <ion-nav-view name="personal-ann-selection-tab"></ion-nav-view>
-              </ion-tab>
-
-            </ion-tabs>
+                    </div>
+                    <button class="button button-block button-calm" ng-click="LoginModal.loginUser()">{{ 'Login' | translate }}</button>
+                </ion-content>
+            </ion-modal-view>
         </script>
-
-        <script id="item.html" type="text/ng-template">
-            <ion-view title="Item">
-              <ion-content class="padding">
-                <p>Details of Item</p>
-              </ion-content>
-            </ion-view>
-        </script>
-
-        <script id="form.html" type="text/ng-template">
-            <ion-view view-title="Form Elements">
-              <ion-content class="padding">
-
-                <div class="list">
-                <div class="item item-input-inset">
-                  <label class="item-input-wrapper" id="search-input">
-                    <i class="icon ion-search placeholder-icon"></i>
-                    <input type="text" placeholder="Search">
-                  </label>
-                </div>
-                </div>
-
-                <div class="list">
-                  <div class="item item-divider">
-                    Other form elements
-                  </div>
-
-                  <label class="item item-radio">
-                    <input type="radio" name="group">
-                    <div class="item-content">
-                      Radio Item #1
-                    </div>
-                    <i class="radio-icon ion-checkmark"></i>
-                  </label>
-                  <label class="item item-radio">
-                    <input type="radio" name="group">
-                    <div class="item-content">
-                      Radio Item #2
-                    </div>
-                    <i class="radio-icon ion-checkmark"></i>
-                  </label>
-
-                  <label class="item item-checkbox">
-                     <label class="checkbox">
-                       <input type="checkbox">
-                     </label>
-                     Checkbox
-                  </label> 
-
-                  <li class="item item-toggle">
-                     Toggle
-                     <label class="toggle toggle-assertive">
-                       <input type="checkbox">
-                       <div class="track">
-                         <div class="handle"></div>
-                       </div>
-                     </label>
-                  </li>
-
-                  <div class="item range range-positive">
-                    <i class="icon ion-ios7-sunny-outline"></i>
-                    <input type="range" name="volume" min="0" max="100" value="33">
-                    <i class="icon ion-ios7-sunny"></i>
-                  </div>
-
-                  <div class="item item-input item-select">
-                    <div class="input-label">
-                      Select
-                    </div>
-                    <select>
-                      <option>Option #1</option>
-                      <option selected>Option #2</option>
-                      <option>Option #3</option>
-                    </select>
-                  </div>
-
-                </div>
-              </ion-content>
-            </ion-view>
-        </script>
-
-        <script id="slidebox.html" type="text/ng-template">
-            <ion-view view-title="Slidebox">
-              <ion-content>
-                <ion-slide-box>
-                  <ion-slide>
-                    <div class="box">
-                        <h2>Box #1</h2>
-                        <p>Content goes here</p>
-                    </div>
-                  </ion-slide>
-                  <ion-slide>
-                    <div class="box">
-                        <h2>Box #2</h2>
-                        <p>Content goes here</p>
-                    </div>
-                  </ion-slide>
-                  <ion-slide>
-                    <div class="box">
-                        <h2>Box #3</h2>
-                        <p>Content goes here</p>
-                    </div>
-                  </ion-slide>
-                </ion-slide-box>
-               </ion-content>
-            </ion-view>
-        </script> 
-
-        <script id="about.html" type="text/ng-template">
-            <ion-view view-title="About">
-
-              <ion-nav-buttons side="right">
-                <button class="button button-icon button-clear ion-email"></button>
-              </ion-nav-buttons>
-
-              <ion-content class="padding">
-                <div class="card">
-                  <div class="item">
-                    <h3>Ionic Framework Kitchen Sink</h3>
-                    <p>by <a href="http://twitter.com/krisrak" target="_blank">@krisrak</a></p>
-                  </div>
-                </div>
-              </ion-content>
-            </ion-view>
-        </script>
-
-        <script id="modal.html" type="text/ng-template">
-            <div class="modal">
-              <ion-header-bar class="bar bar-header bar-assertive">
-                <h1 class="title">Modal</h1>
-                <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
-              </ion-header-bar>
-
-              <ion-content class="padding">
-                <div class="list">
-                    <label class="item item-input">
-                        <span class="input-label">Username</span>
-                        <input type="text" ng-model="user.username">
-                    </label>
-
-                    <label class="item item-input">
-                        <span class="input-label">Password</span>
-                        <input type="password" ng-model="user.password">
-                    </label>
-                </div>
-                <button class="button icon icon-right ion-arrow-right-c button-balanced button-block">Send</button>
-              </ion-content>
-            </div>
-        </script>  
 
     </body>
 </html>

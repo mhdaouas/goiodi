@@ -2,40 +2,44 @@
 
     <ion-nav-title>{{ 'AddWord' | translate }}</ion-nav-title>
 
-    <ion-content class="padding" class="has-header has-footer">
-        <form name="newWordForm" ng-submit="addWord()" novalidate>
-            <label class="item item-divider">
-                {{ 'AddYourNewWord' | translate }}
-            </label>
+    <body class="pane">
 
-            <!-- Input for a new word -->
-            <label class="item item-input"
-                   ng-class="{ 'has-errors' : newWordForm.word.$invalid, 'no-errors' : newWordForm.word.$valid}">
-               <span class="input-label">{{ 'Word' | translate }}</span>
-               <input type="text"
-                      name="word"
-                      placeholder="{{ 'YourNewWord' | translate }}"
-                      ng-model="newWord.word"
-                      ng-pattern="/^[a-zA-Z0-9]*$/"
-                      ng-minlength="1" ng-maxlength="100" required>
-            </label>
+        <ion-content class="padding" class="has-header has-footer">
+            <form name="newWordForm" ng-submit="addWord()" novalidate>
+                <label class="item item-divider">
+                    {{ 'AddYourNewWord' | translate }}
+                </label>
 
-            <!-- Input for the new word definition -->
-            <label class="item item-input"
-                   ng-class="{ 'has-errors' : newWordForm.definition.$invalid, 'no-errors' : newWordForm.definition.$valid}">
-               <span class="input-label">{{ 'Definition' | translate }}</span>
-               <input type="text"
-                      name="definition"
-                      placeholder="{{ 'DefinitionOfYourNewWord' | translate }}"
-                      ng-model="newWord.definition"
-                      ng-minlength="10" ng-maxlength="500" required>
-            </label>
+                <!-- Input for a new word -->
+                <label class="item item-input"
+                       ng-class="{ 'has-errors' : newWordForm.word.$invalid, 'no-errors' : newWordForm.word.$valid}">
+                   <span class="input-label">{{ 'Word' | translate }}</span>
+                   <input type="text"
+                          name="word"
+                          placeholder="{{ 'YourNewWord' | translate }}"
+                          ng-model="newWord.word"
+                          ng-pattern="/^[a-zA-Z0-9]*$/"
+                          ng-minlength="1" ng-maxlength="100" required>
+                </label>
 
-            <!-- Button to add the new defined word to the dictionary -->
-            <button class="button button-block button-positive" ng-disabled="newWordForm.$invalid">
-                {{ 'Add' | translate }}
-            </button>
-        </form>
-    </ion-content>
+                <!-- Input for the new word definition -->
+                <label class="item item-input"
+                       ng-class="{ 'has-errors' : newWordForm.definition.$invalid, 'no-errors' : newWordForm.definition.$valid}">
+                   <span class="input-label">{{ 'Definition' | translate }}</span>
+                   <input type="text"
+                          name="definition"
+                          placeholder="{{ 'DefinitionOfYourNewWord' | translate }}"
+                          ng-model="newWord.definition"
+                          ng-minlength="10" ng-maxlength="500" required>
+                </label>
+
+                <!-- Button to add the new defined word to the dictionary -->
+                <button class="button button-block button-positive" ng-disabled="newWordForm.$invalid">
+                    {{ 'Add' | translate }}
+                </button>
+            </form>
+        </ion-content>
+
+    </body>
 
 </ion-view>

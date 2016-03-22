@@ -1,15 +1,18 @@
 #!/bin/bash
 
 # Add words
-curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"aberration", "creation_time":1456530010, "definition":"A deviation from what is considered proper or normal."}' https://localhost:8083/words/add
-curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"abondon", "creation_time":1456530011, "definition":"To leave somebody, especially somebody you are responsible for, with no intention of returning"}' https://localhost:8083/words/add
-curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"abondoned", "creation_time":1456530012, "definition":"left and no longer wanted, used or needed"}' https://localhost:8083/words/add
-curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"ability", "creation_time":1456530013, "definition":"ability to do something the fact that somebody/something is able to do something"}' https://localhost:8083/words/add
-curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"bear", "creation_time":1456530014, "definition":"(used with can/could in negative sentences and questions) to be able to accept and deal with something unpleasant"}' https://localhost:8083/words/add
-curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"beard", "creation_time":1456530015, "definition":"[countable, uncountable] hair that grows on the chin and cheeks of a man’s face; similar hair that grows on some animals"}' https://localhost:8083/words/add
-curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"beat", "creation_time":1456530016, "definition":"[transitive] beat somebody (at something) to defeat somebody in a game or competition"}' https://localhost:8083/words/add
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"aberration", "definition":"A deviation from what is considered proper or normal."}' http://localhost:8083/words/add
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"abondon", "definition":"To leave somebody, especially somebody you are responsible for, with no intention of returning"}' http://localhost:8083/words/add
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"abondoned", "definition":"left and no longer wanted, used or needed"}' http://localhost:8083/words/add
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"ability", "definition":"ability to do something the fact that somebody/something is able to do something"}' http://localhost:8083/words/add
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"bear", "definition":"(used with can/could in negative sentences and questions) to be able to accept and deal with something unpleasant"}' http://localhost:8083/words/add
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"beard", "definition":"[countable, uncountable] hair that grows on the chin and cheeks of a man’s face; similar hair that grows on some animals"}' http://localhost:8083/words/add
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"beat", "definition":"[transitive] beat somebody (at something) to defeat somebody in a game or competition"}' http://localhost:8083/words/add
 
 # Add comments
-curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"aberration", "creator": "Steve", "creation_time":1456530017, "content":"This is aberrant."}' https://localhost:8083/comments/add
-curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"aberration", "creator": "Frank", "creation_time":1456530018, "content":"No it is not."}' https://localhost:8083/comments/add
-curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"abondon", "creator": "Pascal", "creation_time":1456530019, "content":"I abondon commenting."}' https://localhost:8083/comments/add
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"aberration", "creator": "Steve", "content":"This is aberrant."}' http://localhost:8083/comments/add
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"aberration", "creator": "Frank", "content":"No it is not."}' http://localhost:8083/comments/add
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"abondon", "creator": "Pascal", "content":"I abondon commenting."}' http://localhost:8083/comments/add
+
+# Add users
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"email":"test_username@gmail.com", "username":"test_username", "password": "123Abc"}' http://localhost:8083/users/add

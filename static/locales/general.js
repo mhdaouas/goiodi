@@ -1,3 +1,5 @@
+'use strict';
+
 var app_locales = [
     "en-us",
     "fr",

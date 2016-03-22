@@ -46,6 +46,27 @@ func generateRoutes(dbs *mgo.Session) Routes {
 			"/",
 			serveIndex,
 		},
+		// User login check route
+		Route{
+			"Check user logged in",
+			"GET",
+			"/user/login/check",
+			checkUserLogged,
+		},
+		// JWT user login route
+		Route{
+			"JWT login",
+			"POST",
+			"/user/login",
+			loginUser(dbs),
+		},
+		// User creation route
+		Route{
+			"Add user",
+			"POST",
+			"/users/add",
+			addUser(dbs),
+		},
 		// Route to get all dictionary words
 		Route{
 			"Get all dictionary words",

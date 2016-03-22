@@ -2,9 +2,34 @@ package main
 
 import (
 	"flag"
+	jwt "github.com/dgrijalva/jwt-go"
 	"gopkg.in/mgo.v2"
+	"io/ioutil"
 	"net/http"
 )
+
+// Read the key files before starting http handlers
+func init() {
+	signBytes, err := ioutil.ReadFile(PRIV_KEY_PATH)
+	if err != nil {
+		Log.Error(err.Error())
+	}
+
+	SignKey, err = jwt.ParseRSAPrivateKeyFromPEM(signBytes)
+	if err != nil {
+		Log.Error(err.Error())
+	}
+
+	verifyBytes, err := ioutil.ReadFile(PUB_KEY_PATH)
+	if err != nil {
+		Log.Error(err.Error())
+	}
+
+	VerifyKey, err = jwt.ParseRSAPublicKeyFromPEM(verifyBytes)
+	if err != nil {
+		Log.Error(err.Error())
+	}
+}
 
 func main() {
 
@@ -52,4 +77,5 @@ func main() {
 			Log.Fatal(err)
 		}
 	}
+
 }

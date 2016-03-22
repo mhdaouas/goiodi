@@ -28,10 +28,6 @@ func (r APIResponse) String() (s string) {
 	return s
 }
 
-func printAPIError(w http.ResponseWriter, msg string) {
-	fmt.Fprint(w, APIResponse{Error: msg})
-}
-
 func printAPIResponse(w http.ResponseWriter, data interface{}) {
 	fmt.Fprint(w, APIResponse{Response: data})
 }
@@ -46,15 +42,14 @@ func getWords(dbs *mgo.Session) http.HandlerFunc {
 
 		// Check HTTP request method is the correct one
 		if r.Method != "GET" {
-			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-			printAPIError(w, "HTTP method not allowed")
+			http.Error(w, "HTTP method not allowed", http.StatusMethodNotAllowed)
 			return
 		}
 
-		err := dbs.DB(DICTIONARY_DB).C(WORD_COLLECTION).Find(nil).All(&words)
+		err := dbs.DB(GOIODI_DB).C(WORD_COLLECTION).Find(nil).All(&words)
 		if err != nil {
 			Log.Error(err.Error())
-			printAPIError(w, err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
@@ -74,14 +69,13 @@ func getWordsIncl(dbs *mgo.Session) http.HandlerFunc {
 		// Check HTTP request method is the correct one
 		if r.Method != "POST" {
 			http.Error(w, "HTTP Method not allowed", http.StatusMethodNotAllowed)
-			printAPIError(w, "HTTP Method not allowed")
 			return
 		}
 
 		byteData, err := ioutil.ReadAll(r.Body)
 		if err != nil {
 			Log.Error(err.Error())
-			printAPIError(w, err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
@@ -92,18 +86,18 @@ func getWordsIncl(dbs *mgo.Session) http.HandlerFunc {
 		err = json.Unmarshal(byteData, &d)
 		if err != nil {
 			Log.Error(err.Error())
-			printAPIError(w, err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
 		Log.Debug("Filter string: ", d.FilterStr)
 
-		err = dbs.DB(DICTIONARY_DB).C(WORD_COLLECTION).
+		err = dbs.DB(GOIODI_DB).C(WORD_COLLECTION).
 			Find(bson.M{"word": bson.RegEx{d.FilterStr + ".*", ""}}).
 			All(&words)
 		if err != nil {
 			Log.Error(err.Error())
-			printAPIError(w, err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
@@ -121,22 +115,21 @@ func addComment(dbs *mgo.Session) http.HandlerFunc {
 
 		// Check HTTP request method is the correct one
 		if r.Method != "POST" {
-			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-			printAPIError(w, "Method not allowed")
+			http.Error(w, "HTTP method not allowed", http.StatusMethodNotAllowed)
 			return
 		}
 
 		byteData, err := ioutil.ReadAll(r.Body)
 		if err != nil {
 			Log.Error(err.Error())
-			printAPIError(w, err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
 		err = json.Unmarshal(byteData, &comment)
 		if err != nil {
 			Log.Error(err.Error())
-			printAPIError(w, err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
@@ -146,17 +139,17 @@ func addComment(dbs *mgo.Session) http.HandlerFunc {
 		comment.CreationTime = secs
 
 		if comment.Word != "" && comment.Content != "" {
-			c := dbs.DB(DICTIONARY_DB).C(COMMENT_COLLECTION)
+			c := dbs.DB(GOIODI_DB).C(COMMENT_COLLECTION)
 			err = c.Insert(comment)
 			if err != nil {
 				Log.Error(err.Error())
-				printAPIError(w, err.Error())
+				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 		} else {
 			err := errors.New("The comment has no related word and/or content")
 			Log.Error(err.Error())
-			printAPIError(w, err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 	}
@@ -172,22 +165,21 @@ func addWord(dbs *mgo.Session) http.HandlerFunc {
 
 		// Check HTTP request method is the correct one
 		if r.Method != "POST" {
-			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-			printAPIError(w, "Method not allowed")
+			http.Error(w, "HTTP method not allowed", http.StatusMethodNotAllowed)
 			return
 		}
 
 		byteData, err := ioutil.ReadAll(r.Body)
 		if err != nil {
 			Log.Error(err.Error())
-			printAPIError(w, err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
 		err = json.Unmarshal(byteData, &word)
 		if err != nil {
 			Log.Error(err.Error())
-			printAPIError(w, err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
@@ -197,17 +189,17 @@ func addWord(dbs *mgo.Session) http.HandlerFunc {
 		word.CreationTime = secs
 
 		if word.Word != "" && word.Definition != "" {
-			c := dbs.DB(DICTIONARY_DB).C(WORD_COLLECTION)
+			c := dbs.DB(GOIODI_DB).C(WORD_COLLECTION)
 			err = c.Insert(word)
 			if err != nil {
 				Log.Error(err.Error())
-				printAPIError(w, err.Error())
+				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 		} else {
 			err := errors.New("The new word and/or its definition is an empty string")
 			Log.Error(err.Error())
-			printAPIError(w, err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 	}
@@ -225,7 +217,6 @@ func getWordInfo(dbs *mgo.Session) http.HandlerFunc {
 		// Check HTTP request method is the correct one
 		if r.Method != "GET" {
 			http.Error(w, "HTTP Method not allowed", http.StatusMethodNotAllowed)
-			printAPIError(w, "HTTP Method not allowed")
 			return
 		}
 
@@ -233,12 +224,12 @@ func getWordInfo(dbs *mgo.Session) http.HandlerFunc {
 		if searchedWord, ok := vars["word"]; ok {
 			Log.Debug("Searched word: ", searchedWord)
 
-			err := dbs.DB(DICTIONARY_DB).C(WORD_COLLECTION).
+			err := dbs.DB(GOIODI_DB).C(WORD_COLLECTION).
 				Find(bson.M{"word": searchedWord}).
 				One(&word)
 			if err != nil {
 				Log.Error(err.Error())
-				printAPIError(w, err.Error())
+				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
 
@@ -246,7 +237,7 @@ func getWordInfo(dbs *mgo.Session) http.HandlerFunc {
 		} else {
 			err := errors.New("No word in request")
 			Log.Error(err.Error())
-			printAPIError(w, err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 	}

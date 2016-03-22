@@ -23,7 +23,7 @@ app.controller('WordListPageCtrl', function ($scope, $sce, $ionicScrollDelegate,
     };
 
     $scope.scrollTop = function() {
-        $ionicScrollDelegate.resize();  
+        $ionicScrollDelegate.resize();
     };
 
 });

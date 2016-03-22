@@ -1,0 +1,28 @@
+<ion-view>
+    <ion-nav-title>{{ 'SignUp' | translate }}</ion-nav-title>
+    <ion-content class="padding">
+        <div class="list list-inset">
+
+            <label class="item item-divider">
+                {{ 'EnterYourPersonalInfo' | translate }}
+            </label>
+
+            <!-- User username field -->
+            <label class="item item-input">
+                <input type="text" placeholder="Username" ng-model="user.username">
+            </label>
+
+            <!-- User e-mail field -->
+            <label class="item item-input">
+                <input type="email" placeholder="E-mail" ng-model="user.email">
+            </label>
+
+            <!-- User password field -->
+            <label class="item item-input">
+                <input type="password" placeholder="Password" ng-model="user.password">
+            </label>
+
+        </div>
+        <button class="button button-block button-calm" ng-click="addUser()">{{ 'SignUp' | translate }}</button>
+    </ion-content>
+</ion-view>
