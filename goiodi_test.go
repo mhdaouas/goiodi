@@ -51,14 +51,6 @@ func init() {
 		panic(err)
 	}
 
-	// Run DB initialization script
-	// result := bson.M{}
-	// if err = dbs.DB(GOIODI_DB).Run(bson.M{"eval": "initDB();"}, &result); err != nil {
-	// 	panic(err)
-	// } else {
-	// 	fmt.Println(result)
-	// }
-
 	cmd := exec.Command("mongo", HOST+"/"+GOIODI_DB, DB_INIT_SCRIPT)
 	err = cmd.Start()
 	if err != nil {
