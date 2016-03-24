@@ -15,4 +15,6 @@ curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/j
 curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"word":"abondon", "creator": "Pascal", "content":"I abondon commenting."}' https://localhost:8083/comments/add
 
 # Add users
-curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"email":"test_username@gmail.com", "username":"test_username", "password": "test_password"}' https://localhost:8083/users/add
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"email":"steve@mail.com", "username":"steve", "password": "123"}' https://localhost:8083/users/add
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"email":"frank@mail.com", "username":"frank", "password": "123"}' https://localhost:8083/users/add
+curl --insecure -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"email":"pascal@mail.com", "username":"pascal", "password": "123"}' https://localhost:8083/users/add
