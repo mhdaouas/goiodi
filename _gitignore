@@ -16,3 +16,9 @@
 *.swn
 *.swp
 
+# Certificates and keys
+*.key
+*.crt
+*.rsa
+*.rsa.pub
+

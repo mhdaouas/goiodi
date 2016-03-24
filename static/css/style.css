@@ -1,4 +1,4 @@
-.searchedText {
+.searched-text {
    font-weight: bold;
     color: red;
 }
@@ -11,4 +11,10 @@
 .no-errors {
     border-left: 3px solid #3d8b3d;
     border-right: 3px solid #3d8b3d;
+}
+
+.highlighted-text {
+    background: yellow;
+    font-weight: bold;
+    color: red;
 }

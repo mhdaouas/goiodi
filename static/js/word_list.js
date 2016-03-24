@@ -26,4 +26,10 @@ app.controller('WordListPageCtrl', function ($scope, $sce, $ionicScrollDelegate,
         $ionicScrollDelegate.resize();
     };
 
+    $scope.highlight = function(text, search) {
+        if (!search) {
+            return $sce.trustAsHtml(text);
+        }
+        return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlighted-text">$&</span>'));
+    };
 });
