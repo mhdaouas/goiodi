@@ -6,8 +6,6 @@ app.controller('WordListPageCtrl', function ($scope, $sce, $ionicScrollDelegate,
     // using a state resolve
     $scope.words = words;
 
-    console.log(words);
-
     // Filter words based on a user entered string
     $scope.filterWords = function() {
         var filterStr = {
@@ -31,9 +29,5 @@ app.controller('WordListPageCtrl', function ($scope, $sce, $ionicScrollDelegate,
             return $sce.trustAsHtml(text);
         }
         return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlighted-text">$&</span>'));
-    };
-
-    $scope.goToWordPage = function(word) {
-        $state.go(word);
     };
 });

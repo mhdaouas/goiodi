@@ -1,1 +1,3 @@
+#!/bin/sh
+
 mongo <initDB.js
