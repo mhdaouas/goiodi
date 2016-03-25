@@ -1,20 +1,41 @@
-.searched-text {
-   font-weight: bold;
-    color: red;
-}
+/* .has-errors { */
+/*     border-left: 3px solid #cc2511; */
+/*     border-right: 3px solid #cc2511; */
+/* } */
 
-.has-errors {
-    border-left: 3px solid #cc2511;
-    border-right: 3px solid #cc2511;
-}
+/* .no-errors { */
+/*     border-left: 3px solid #3d8b3d; */
+/*     border-right: 3px solid #3d8b3d; */
+/* } */
 
-.no-errors {
-    border-left: 3px solid #3d8b3d;
-    border-right: 3px solid #3d8b3d;
-}
-
+/* Used for dictionary word highlighting with a pattern search match */
 .highlighted-text {
     background: yellow;
     font-weight: bold;
     color: red;
+}
+
+/* Form validation (angular-messages) */
+
+label.item.has-error {
+  border-bottom: 2px solid red;
+}
+
+label.item.has-error-lr {
+  border-left: 2px solid red;
+  border-right: 2px solid red;
+}
+
+label.item.valid-lr {
+  border-left: 2px solid green;
+  border-right: 2px solid green;
+}
+
+.form-errors {
+  margin: 5px 0
+}
+
+.form-error {
+  padding: 2px 0 2px 16px;
+  color: red;
 }

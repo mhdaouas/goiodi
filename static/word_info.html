@@ -3,57 +3,67 @@
     <ion-nav-title>{{ searchedWord.word }}</ion-nav-title>
 
     <body class="pane">
-    <ion-content class="padding" class="has-header has-footer">
 
-        <!-- Button for word search based on speech -->
-        <ion-nav-buttons side="right">
-            <button class="button icon ion-ios-volume-high" ng-click="spellWord()">
-            </button>
-        </ion-nav-buttons>
+        <ion-content class="padding" class="has-header has-footer">
 
-        <div class="list">
-            <!-- Display word creator and creation date -->
-            <h2>{{searchedWord.word}}</h2>
-            <p>{{ 'CreatedAt' | translate }} {{ searchedWord.creation_time }}</p>
+            <!-- TODO: Button for word search based on speech -->
+            <!-- <ion-nav-buttons side="right"> -->
+            <!--     <button class="button icon ion-ios-volume-high" ng-click="spellWord()"> -->
+            <!--     </button> -->
+            <!-- </ion-nav-buttons> -->
 
-            <!-- Display word definition -->
-            <label class="item item-divider">
-                {{ 'Definition' | translate }}
-            </label>
-            <ion-item class="item-text-wrap">
-                {{ searchedWord.definition }}
-            </ion-item>
+            <div class="list">
 
-            <!-- Display comments added by users to the word -->
-            <label class="item item-divider">
-                {{ 'Comments' | translate }}
-            </label>
-            <ion-list show-reorder="data.showReorder">
-                <ion-item ng-repeat="comment in searchedWord.comments" item="comment">
+                <!-- Display word creator and creation date -->
+                <h2>{{searchedWord.word}}</h2>
+                <p>{{ 'CreatedAt' | translate }} {{ searchedWord.creation_time }}</p>
+
+                <!-- Display word definition -->
+                <label class="item item-divider">
+                    {{ 'Definition' | translate }}
+                </label>
+
+                <ion-item class="item-text-wrap">
+                    {{ searchedWord.definition }}
+                </ion-item>
+
+                <!-- Display comments added by users to the word -->
+                <span ng-show="userIsLogged()">
 
                     <label class="item item-divider">
-                        <p>{{ comment.creator }} {{ 'at' | translate }} <span ng-bind-html="epochToReadable(comment.creation_time)"></span></p>
+                        {{ 'Comments' | translate }}
                     </label>
-                    <ion-item class="item-text-wrap">
-                        {{ comment.content }}
+
+                    <ion-list show-reorder="data.showReorder">
+                        <ion-item ng-repeat="comment in searchedWord.comments" item="comment">
+
+                            <label class="item item-divider">
+                                <p>{{ comment.creator }} {{ 'at' | translate }} <span ng-bind-html="epochToReadable(comment.creation_time)"></span></p>
+                            </label>
+                            <ion-item class="item-text-wrap">
+                                {{ comment.content }}
+                            </ion-item>
+
+                        </ion-item>
+                    </ion-list>
+
+                    <ion-item>
+                        <!-- New comment text area -->
+                        <label class="item item-input text">
+                            <textarea ng-model="newComment.content" placeholder="Comments"></textarea>
+                        </label>
+                        <!-- Button to add new comment -->
+                        <button class="button icon ion-plus-circled" ng-click="addComment()">
+                            {{ 'AddComment' | translate }}
+                        </button>
                     </ion-item>
 
-                </ion-item>
-            </ion-list>
+                </span>
 
-            <ion-item  ng-show="UserAuth.logged">
-                <!-- New comment text area -->
-                <label class="item item-input text">
-                    <textarea ng-model="newComment.content" placeholder="Comments"></textarea>
-                </label>
-                <!-- Button to add new comment -->
-                <button class="button icon ion-plus-circled" ng-click="addComment()">
-                    {{ 'AddComment' | translate }}
-                </button>
-            </ion-item>
-        </div>
+            </div>
 
-    </ion-content>
+        </ion-content>
+
     </body>
 
 </ion-view>

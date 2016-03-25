@@ -60,12 +60,13 @@ sudo ./goiodi
 
 ### Todos
 
- - Add word highlighting when user searches a word
  - Add word vocal search
  - Add word audio reading
  - Add user related features:
+    - Add user personal page
     - Add word ranking (with a 5 star system for example)
     - Add word consultation statistics
+    - Add user activity details
     - Add "Word of the day" feature to make the user learn new words
 
 License

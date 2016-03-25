@@ -1,27 +1,63 @@
 <ion-view>
+
     <ion-nav-title>{{ 'Login' | translate }}</ion-nav-title>
 
     <body class="pane">
 
         <ion-content class="padding">
-            <div class="list list-inset">
 
-                <label class="item item-divider">
-                    {{ 'EnterYourPersonalInfo' | translate }}
-                </label>
+            <form name="loginForm" ng-submit="loginUser(loginForm)" novalidate>
 
-                <!-- User username field -->
-                <label class="item item-input">
-                    <input type="text" placeholder="Username" ng-model="user.username">
-                </label>
+                <div class="list list-inset">
 
-                <!-- User password field -->
-                <label class="item item-input">
-                    <input type="password" placeholder="Password" ng-model="user.password">
-                </label>
+                    <label class="item item-divider">
+                        {{ 'EnterYourPersonalInfo' | translate }}
+                    </label>
 
-            </div>
-            <button class="button button-block button-calm" ng-click="loginUser()">{{ 'Login' | translate }}</button>
+                    <!-- User username field -->
+                    <label class="item item-input"
+                           ng-class="{ 'has-error' : loginForm.username.$invalid }">
+                        <label class="input-label ng-binding">{{ 'Username' | translate }}</label>
+                        <input type="text"
+                               name="username"
+                               placeholder="{{ 'Username' | translate }}"
+                               ng-model="user.username"
+                               ng-pattern="/^[a-zA-Z0-9]*$/"
+                               ng-minlength="3" ng-maxlength="30" required>
+                    </label>
+
+                    <div class="form-errors" ng-messages="loginForm.username.$error">
+                        <div ng-messages-include="templates/form-errors.html">
+                            <!-- <div class="form-error" ng-messages="maxlength">Custom message</div> -->
+                        </div>
+                    </div>
+
+                    <!-- User password field -->
+                    <label class="item item-input"
+                           ng-class="{ 'has-error' : loginForm.password.$invalid }">
+                        <label class="input-label ng-binding">{{ 'Password' | translate }}</label>
+                        <input type="password"
+                               name="password"
+                               placeholder="{{ 'Password' | translate }}"
+                               ng-model="user.password"
+                               ng-minlength="6" ng-maxlength="30" required>
+                    </label>
+
+                    <div class="form-errors" ng-messages="loginForm.password.$error">
+                        <div ng-messages-include="templates/form-errors.html">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="padding">
+                    <button class="button button-block button-calm" ng-disabled="loginForm.$invalid">
+                        {{ 'Login' | translate }}
+                    </button>
+                </div>
+
+            </form>
+
         </ion-content>
 
     </body>

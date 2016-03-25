@@ -2,7 +2,7 @@
 
 'use strict';
 
-var app = angular.module('starter', ['pascalprecht.translate', 'ionic']);
+var app = angular.module('starter', ['pascalprecht.translate', 'ionic', 'ngMessages']);
 
 /* App constants */
 app.constant('AppConfigConst', {
@@ -101,7 +101,7 @@ app.factory('UserAuth', function($q, $http, MainService, $timeout) {
         isLogged : function () { 
             return this.logged;
         },
-        stateAfterLogin : function () { 
+        getStateAfterLogin : function () { 
             return this.stateAfterLogin;
         },
         setLogged : function (val) { 
@@ -125,42 +125,6 @@ app.factory('UserAuth', function($q, $http, MainService, $timeout) {
         // checkLogged : function() {
         //     return $http.get(MainService.host + '/user/login/check', apiHeader);
         // },
-    };
-});
-
-app.service('LoginModal', function($ionicModal, API, UserAuth) {
-
-    var service = this;
-    // var toStateName = null;
-
-    // Form user data
-    this.user = {
-        password : undefined,
-        username : undefined,
-    };
-
-    this.show = function() {
-        // service.toStateName = toStateName;
-        // console.log("toState: ", toStateName);
-
-        $ionicModal.fromTemplateUrl('login_modal.html', {
-            scope: null,
-            animation: 'slide-in-up',
-            controller: 'LoginModalCtrl'
-        }).then(function(modal) {
-            service.modal = modal;
-            service.modal.show();
-        });
-    };
-
-    this.hide = function() {
-        // service.modal.remove();
-        service.modal.hide();
-    };
-
-    this.loginUser = function() {
-        var loggedUserJSON = JSON.stringify(this.user);
-        // Call UserAuth
     };
 });
 
@@ -254,7 +218,7 @@ app.config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
 });
 
 // Check if the user is authentified for some pages
-app.run(function ($rootScope, $state, $location, UserAuth) {
+app.run(function ($rootScope, $state, UserAuth) {
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
         var logged = UserAuth.isLogged();
         if (toState.requireLogin && !logged) {

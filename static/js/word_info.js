@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('WordInfoPageCtrl', function ($stateParams, $sce, $scope, UserAuth, API, AppConfigConst, $window) {
+app.controller('WordInfoPageCtrl', function ($stateParams, $sce, $scope, UserAuth, API, AppConfigConst) {
 
     // New comment
     $scope.newComment = {
@@ -39,5 +39,10 @@ app.controller('WordInfoPageCtrl', function ($stateParams, $sce, $scope, UserAut
         API.addWordComment(newCommentJSON).success(function(data){
             $scope.getWordInfo();
         });
+    };
+
+    // Check user is logged (to show comments)
+    $scope.userIsLogged = function() {
+        return UserAuth.isLogged();
     };
 });
