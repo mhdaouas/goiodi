@@ -8,7 +8,7 @@ GOIODI is an open-source responsive collaborative dictionary web application mad
   - Can be translated to several languages (only French and English are supported for the moment)
 
 ### Current version
-1.1
+1.2
 
 ### Used technologies
 
@@ -65,7 +65,6 @@ sudo ./goiodi
  - Add word audio reading
  - Add user related features:
     - Add word ranking (with a 5 star system for example)
-    - Add word comments
     - Add word consultation statistics
     - Add "Word of the day" feature to make the user learn new words
 
