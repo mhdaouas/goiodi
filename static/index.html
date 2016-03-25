@@ -38,8 +38,9 @@
         <ion-nav-view animation="slide-left-right"></ion-nav-view>
 
         <script id="menu.html" type="text/ng-template">
-            <ion-side-menus>
+            <ion-side-menus enable-menu-with-back-views="true">
 
+              <!-- Left side menu -->
               <ion-side-menu side="left">
                 <ion-header-bar class="bar-assertive">
                   <h1 class="title">GOIODI</h1>
@@ -69,6 +70,7 @@
             </ion-side-menus>
         </script>
 
+        <!-- Login modal (not used for the moment) -->
         <script id="login_modal.html" type="text/ng-template">
             <ion-modal-view>
                 <header class="bar bar-header bar-positive">

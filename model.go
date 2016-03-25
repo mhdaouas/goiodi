@@ -2,9 +2,10 @@ package main
 
 // Dictionary word
 type Word struct {
-	CreationTime int64  `json:"creation_time" bson:"creation_time"`
-	Definition   string `json:"definition" bson:"definition"`
-	Word         string `json:"word" bson:"word"`
+	CreationTime int64     `json:"creation_time" bson:"creation_time"`
+	Definition   string    `json:"definition" bson:"definition"`
+	Word         string    `json:"word" bson:"word"`
+	Comments     []Comment `json:"comments" bson:",omitempty"`
 }
 
 // Structure for the comments created by users for dictionary words

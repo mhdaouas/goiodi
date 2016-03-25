@@ -88,6 +88,13 @@ func generateRoutes(dbs *mgo.Session) Routes {
 			"/word/{word:[a-z]+}",
 			getWordInfo(dbs),
 		},
+		// Route to get a specific word comments
+		Route{
+			"Get a specific word comments",
+			"GET",
+			"/word/{word:[a-z]+}/comments",
+			getWordComments(dbs),
+		},
 		// Route to add a new word to the dictionary
 		Route{
 			"Add a new word to the dictionary",

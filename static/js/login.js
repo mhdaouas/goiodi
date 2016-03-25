@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LoginPageCtrl', function (UserAuth, $state, $scope, $ionicPopup, $ionicHistory) {
+app.controller('LoginPageCtrl', function (UserAuth, $state, $scope, $ionicPopup, $ionicHistory, $translate) {
 
     // Form user data
     $scope.user = {
@@ -14,6 +14,7 @@ app.controller('LoginPageCtrl', function (UserAuth, $state, $scope, $ionicPopup,
         UserAuth.loginUser(loggedUserJSON)
             .success(function(data){
                 UserAuth.setLogged(true);
+                UserAuth.setUsername($scope.user.username);
                 console.log(data);
                 $ionicHistory.nextViewOptions({ historyRoot: true }); 
                 $state.transitionTo(UserAuth.stateAfterLogin);
@@ -22,8 +23,8 @@ app.controller('LoginPageCtrl', function (UserAuth, $state, $scope, $ionicPopup,
             .error(function(data){
                 // Show an alert if user couldn't be added
                 var alertPopup = $ionicPopup.alert({
-                    title: 'User couldn\'t be added!',
-                    template: 'Please check entered information'
+                    title: $translate('LoginProblem'),
+                    template: $translate('PleaseCheckEnteredInformation')
                 });
             });
     };

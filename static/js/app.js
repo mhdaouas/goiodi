@@ -83,7 +83,7 @@ app.factory('API', function($http, MainService){
             return $http.post(MainService.host + '/words/add', data, apiHeader);
         },
         // API to add a new comment for a word in the dictionary
-        addComment:function(data){
+        addWordComment:function(data){
             return $http.post(MainService.host + '/comments/add', data, apiHeader);
         },
     };
@@ -91,8 +91,12 @@ app.factory('API', function($http, MainService){
 
 /* User related parameters */
 app.factory('UserAuth', function($q, $http, MainService, $timeout) {
+
+    // User properties
     this.logged = false;
+    this.username = undefined;
     this.stateAfterLogin = undefined;
+
     return {
         isLogged : function () { 
             return this.logged;
@@ -106,18 +110,12 @@ app.factory('UserAuth', function($q, $http, MainService, $timeout) {
         setStateAfterLogin : function (val) { 
             this.stateAfterLogin = val;
         },
+        setUsername : function (val) { 
+            this.username = val;
+        },
         // API to add a new user (sign-up)
         addUser:function(data){
             return $http.post(MainService.host + '/users/add', data, apiHeader);
-                    // .then(function(result) {
-                    //     if (result.data.success) {
-                    //         logged = true;
-                    //         resolve(result.data);
-                    //     } else {
-                    //         reject(result.data);
-                    //     }
-                    // });
-            // });
         },
         // API to log a user in
         loginUser:function(data){
@@ -179,7 +177,7 @@ app.config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
     })
     // Sign-up page
     .state('menu.signup', {
-      url: "/user/signup",
+      url: "/signup",
       requireLogin: false,
       views: {
         'menuContent': {
@@ -203,10 +201,16 @@ app.config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
     .state('menu.words', {
       url: "/words",
       requireLogin: false,
+      cache: false,
       views: {
         'menuContent': {
           templateUrl: "word_list.html",
-          controller: 'WordListPageCtrl'
+          controller: 'WordListPageCtrl',
+          resolve: {
+             words: function(WordService) {
+                 return WordService.getWords();
+             }
+          }
         }
       }
     })
@@ -225,29 +229,10 @@ app.config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
     .state('menu.add_word', {
       url: "/words/add",
       requireLogin: true,
-      // resolve: {
-      //     load: function($q, LoginModal, User){
-      //         var defer = $q.defer();
-      //         if(User.isLogged()){
-      //             defer.resolve();
-      //         } else {
-      //             defer.reject("not_logged_in");
-      //             LoginModal.show("menu.add_word");
-      //         }
-      //         return defer.promise;
-      //     }
-      // },
       views: {
         'menuContent': {
           templateUrl: "add_word.html",
           controller: 'AddWordPageCtrl',
-          // resolve: { authenticate: authenticate }
-          // onEnter: function($state, User){
-          //     console.log("USER LOGGED: ", User.logged);
-          //     if(!User.logged){
-          //         $state.go('menu.login');
-          //     }
-          // }
         }
       }
     })
@@ -266,27 +251,6 @@ app.config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
   // Default page
   $urlRouterProvider.otherwise("menu/words");
 
-  // $locationProvider.html5Mode({
-  //     enabled: true,
-  //     requireBase: false
-  // });
-
-//   $httpProvider.interceptors.push(function($q, $location) {
-//       return {
-//           'responseError': function(response) {
-//               if(response.status === 401 ||
-//                  response.status === 403 ||
-//                  response.status === 500) {
-//                   // LoginModal.show();
-//                   // LoginModal(toState);
-//                   $location.path('/user/login');
-//                   // $state.go('menu.login');
-//               }
-//               return $q.reject(response);
-//           }
-//       };
-//   });
-
 });
 
 // Check if the user is authentified for some pages
@@ -299,13 +263,21 @@ app.run(function ($rootScope, $state, $location, UserAuth) {
             // stop state change
             event.preventDefault();
         }
-
-
-        // log on / sign in...
-        // if (!isLogged && requireLogin) {
-        //     $state.go("menu.login");
-        // }
     });
+});
+
+app.service('WordService', function($q, API) {
+  return {
+    getWords: function() {
+      var dfd = $q.defer()
+
+      API.getWords().then(function(result) {
+          dfd.resolve(result.data.response)
+      });
+
+      return dfd.promise
+    }
+  }
 });
 
 app.controller('AppCtrl', function($rootScope, API, $translate) {

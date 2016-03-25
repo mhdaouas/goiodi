@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('SignupPageCtrl', function (API, $scope, $window) {
+app.controller('SignupPageCtrl', function (UserAuth, $scope, $state) {
 
     // Form user data
     $scope.user = {
@@ -12,10 +12,9 @@ app.controller('SignupPageCtrl', function (API, $scope, $window) {
     // Add user in DB if the "Sign-up" button is clicked
     $scope.addUser = function() {
         var newUserJSON = JSON.stringify($scope.user);
-        API.addUser(newUserJSON).success(function(data){
-            console.log(data);
-            $window.location.href = '/#/menu/words';
-            $window.location.reload();
+        UserAuth.addUser(newUserJSON).success(function(data){
+            // When user is signed up, redirect him to the words page
+            $state.go('menu.words');
         });
     };
 

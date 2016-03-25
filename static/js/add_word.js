@@ -1,17 +1,6 @@
 'use strict';
 
-app.controller('AddWordPageCtrl', function (API, $scope, $window) {
-
-    // Check if the user is authentified before showing the page
-    // $scope.initPage = function () {
-    //     // If the user is not logged in, re-direct him to log-in page
-        // API.checkUserLogged().error(function(){
-        //     console.log('User access denied');
-        //     event.preventDefault();
-        //     $window.location.href = '/#/menu/user/login';
-        //     $window.location.reload();
-        // });
-    // };
+app.controller('AddWordPageCtrl', function (API, $scope, $state) {
 
     // New word to be entered by the user
     $scope.newWord = {
@@ -24,8 +13,8 @@ app.controller('AddWordPageCtrl', function (API, $scope, $window) {
         $scope.newWord.word = $scope.newWord.word.toString().toLowerCase();
         var newWordJSON = JSON.stringify($scope.newWord);
         API.addWord(newWordJSON).success(function(data){
-            $window.location.href = '/#/menu/words';
-            $window.location.reload();
+            // After the user adds a word, redirect him to the words page
+            $state.go('menu.words');
         });
     };
 

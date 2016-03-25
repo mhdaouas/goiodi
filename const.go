@@ -21,7 +21,7 @@ const (
 	CONTENT_TYPE = "application/json; charset=utf-8"
 
 	// DB related constants
-	DB_INIT_SCRIPT     = "initDB.js"
+	DB_INIT_SCRIPT     = "initDB"
 	GOIODI_DB          = "goiodi"
 	USER_COLLECTION    = "users"
 	WORD_COLLECTION    = "words"

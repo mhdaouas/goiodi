@@ -2,10 +2,13 @@
 
 app_locale_str['en-us'] = {
     Add : 'Add',
+    AddComment : 'Add comment',
     AddWord : 'Add a word',
     AddUser : 'Add user',
     AddYourNewWord : 'Add your new word',
     Application : 'Application',
+    at : 'at',
+    Comments : 'Comments',
     CreatedAt : 'Created at',
     Definition : 'Definition',
     DefinitionOfYourNewWord : 'Definition of your new word',
@@ -14,6 +17,8 @@ app_locale_str['en-us'] = {
     Language : 'Language',
     Languages : 'Languages',
     Login : 'Log-in',
+    LoginProblem : 'Login problem',
+    PleaseCheckEnteredInformation : 'Please check entered credentials',
     Settings : 'Settings',
     SignUp: 'Sign-up',
     TypeWord : 'Type a word',

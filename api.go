@@ -105,6 +105,43 @@ func getWordsIncl(dbs *mgo.Session) http.HandlerFunc {
 	}
 }
 
+// getWordComments is an API to get all the selected word comments
+func getWordComments(dbs *mgo.Session) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var comments []Comment
+
+		// Check HTTP request content type as JSON
+		w.Header().Set("Content-Type", CONTENT_TYPE)
+
+		// Check HTTP request method is the correct one
+		if r.Method != "GET" {
+			http.Error(w, "HTTP method not allowed", http.StatusMethodNotAllowed)
+			return
+		}
+
+		vars := mux.Vars(r)
+		if searchedWord, ok := vars["word"]; ok {
+			Log.Debug("Searched word: ", searchedWord)
+
+			err := dbs.DB(GOIODI_DB).C(COMMENT_COLLECTION).
+				Find(bson.M{"word": searchedWord}).
+				All(&comments)
+			if err != nil {
+				Log.Error(err.Error())
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			printAPIResponse(w, comments)
+		} else {
+			err := errors.New("No word in request")
+			Log.Error(err.Error())
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+	}
+}
+
 // addComment is an API to add a comment for a specific word in the dictionary
 func addComment(dbs *mgo.Session) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -210,6 +247,7 @@ func addWord(dbs *mgo.Session) http.HandlerFunc {
 func getWordInfo(dbs *mgo.Session) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var word Word
+		var comments []Comment
 
 		// Check HTTP request content type as JSON
 		w.Header().Set("Content-Type", CONTENT_TYPE)
@@ -232,6 +270,17 @@ func getWordInfo(dbs *mgo.Session) http.HandlerFunc {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
 			}
+
+			err = dbs.DB(GOIODI_DB).C(COMMENT_COLLECTION).
+				Find(bson.M{"word": searchedWord}).
+				All(&comments)
+			if err != nil {
+				Log.Error(err.Error())
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			word.Comments = comments
 
 			printAPIResponse(w, word)
 		} else {

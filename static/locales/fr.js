@@ -2,10 +2,13 @@
 
 app_locale_str['fr'] = {
     Add : 'Ajouter',
+    AddComment : 'Ajouter un commentaire',
     AddWord : 'Ajouter un mot',
     AddUser : 'Ajouter un utilisateur',
     AddYourNewWord : 'Ajoutez votre nouveau mot',
     Application : 'Application',
+    at : 'le',
+    Comments : 'Commentaires',
     CreatedAt : 'Crée le',
     Definition : 'Définition',
     DefinitionOfYourNewWord : 'Définition de votre nouveau mot',
@@ -14,6 +17,8 @@ app_locale_str['fr'] = {
     Language : 'Langue',
     Languages : 'Langues',
     Login : 'Se connecter',
+    LoginProblem : 'Problème d\'authentification',
+    PleaseCheckEnteredInformation : 'Veuillez vérifier vos données',
     Settings : 'Paramètres',
     SignUp: 'S\'enregistrer',
     TypeWord : 'Entrez un mot',

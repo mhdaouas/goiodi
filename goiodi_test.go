@@ -51,14 +51,16 @@ func init() {
 		panic(err)
 	}
 
-	cmd := exec.Command("mongo", HOST+"/"+GOIODI_DB, DB_INIT_SCRIPT)
+	cmd := exec.Command("/bin/sh", DB_INIT_SCRIPT)
 	err = cmd.Start()
 	if err != nil {
 		panic(err)
 	}
 	Log.Notice("Waiting for command to finish...")
 	err = cmd.Wait()
-	Log.Notice("Command finished with error: %v", err)
+	if err != nil {
+		panic(err)
+	}
 
 	// Get the API URL
 	addUserUrl = SERVER_URL + "/users/add"
@@ -220,6 +222,39 @@ func TestGetWordInfo(t *testing.T) {
 	invalidSearchedWord := "test_invalid"
 	t.Log(getWordInfoUrl)
 	request, err = client.Get(getWordInfoUrl + "/" + invalidSearchedWord) // Create request with JSON body
+	if err != nil {
+		t.Error(err.Error())
+	}
+	defer request.Body.Close()
+
+	if request.StatusCode != http.StatusNotFound {
+		t.Errorf("Internal server error expected: %d", request.StatusCode) // HTTP request failed: Test failed
+	}
+}
+
+// getWordComments is an API to get a user specified word comments (made by app users)
+func TestGetWordComments(t *testing.T) {
+	fmt.Println("-- getWordComments --")
+
+	// Valid case 1
+
+	searchedWord := "test"
+	t.Log(getWordInfoUrl)
+	request, err := client.Get(getWordInfoUrl + "/" + searchedWord + "/comments") // Create request with JSON body
+	if err != nil {
+		t.Error(err.Error())
+	}
+	defer request.Body.Close()
+
+	if request.StatusCode != http.StatusOK {
+		t.Errorf("Success expected: %d", request.StatusCode) // HTTP request failed: Test failed
+	}
+
+	// Invalid case 1: Invalid searched word
+
+	invalidSearchedWord := "test_invalid"
+	t.Log(getWordInfoUrl)
+	request, err = client.Get(getWordInfoUrl + "/" + invalidSearchedWord + "/comments") // Create request with JSON body
 	if err != nil {
 		t.Error(err.Error())
 	}

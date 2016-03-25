@@ -1,3 +1,6 @@
+// Use GOIODI DB
+use goiodi;
+
 // Remove everything (all collections documents) in the database
 db.dropDatabase();
 

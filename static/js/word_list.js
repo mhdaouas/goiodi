@@ -1,12 +1,12 @@
 'use strict';
 
-app.controller('WordListPageCtrl', function ($scope, $sce, $ionicScrollDelegate, API) {
+app.controller('WordListPageCtrl', function ($scope, $sce, $ionicScrollDelegate, API, words) {
 
-    // Get all the dictionary words by default (as soon as the word list page
-    // is loaded and no word is in the search filter)
-    API.getWords().success(function(data){
-        $scope.words = data.response;
-    });
+    // Get all the dictionary words before the word list page is loaded
+    // using a state resolve
+    $scope.words = words;
+
+    console.log(words);
 
     // Filter words based on a user entered string
     $scope.filterWords = function() {
@@ -31,5 +31,9 @@ app.controller('WordListPageCtrl', function ($scope, $sce, $ionicScrollDelegate,
             return $sce.trustAsHtml(text);
         }
         return $sce.trustAsHtml(text.replace(new RegExp(search, 'gi'), '<span class="highlighted-text">$&</span>'));
+    };
+
+    $scope.goToWordPage = function(word) {
+        $state.go(word);
     };
 });
