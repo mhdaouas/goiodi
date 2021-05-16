@@ -1,6 +1,6 @@
 # GOIODI
 
-GOIODI is an open-source responsive collaborative dictionary web application made with the Ionic framework, AngularJS, the Golang language and based on a MongoDB NoSQL database. The main advantages of GOIOD:
+GOIODI is an open-source responsive collaborative dictionary web application made with the Ionic framework, AngularJS, the Golang language and based on a MongoDB NoSQL database. The main advantages of GOIODI:
 
   - Open source
   - Has a responsive design and can be used on mobile devices (an application will be created for Android)
